@@ -1,0 +1,12 @@
+#!wing
+#!version=4.0
+##################################################################
+# Wing IDE project file                                          #
+##################################################################
+[project attributes]
+proj.file-list = [loc('add.html'),
+                  loc('add.py'),
+                  loc('app.yaml'),
+                  loc('list.html'),
+                  loc('list.py')]
+proj.file-type = 'shared'
