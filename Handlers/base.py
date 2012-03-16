@@ -7,6 +7,7 @@ import os
 class Base(webapp2.RequestHandler):
     jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/../Templates/")) 
+    
   
     def render_template(self, name, values):
         self.response.headers['Content-Type'] = 'text/html'

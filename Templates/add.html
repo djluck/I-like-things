@@ -3,10 +3,15 @@
 {% block title %}ADD{% endblock %}
 
 {% block content %}    
-<form>
+<form method="POST">
     <input name="link" id="link" type="text"/>
     <input name="tags" id="tags" type="text"/>
     <input type="submit" value="Add!"/>
 </form>
+{% if added is defined %}
+    <div>
+        Added the link {{ link | e}}!
+    </div>
+{% endif %}
 {% endblock %}
 
