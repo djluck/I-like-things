@@ -1,16 +1,9 @@
 import webapp2
-import jinja2
-import os
+from Handlers.base import Base
 
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/../templates/"))
-
-class List(webapp2.RequestHandler):
+class List(Base):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/html'
-        template = jinja_environment.get_template('list.html')
-        template_values = {"myname":"JAMES"}
-        self.response.out.write(template.render(template_values))
+        self.render_template("list.html",  {"myname":"JAMES"})
 
 app = webapp2.WSGIApplication([('/.*', List)],
                               debug=True)
