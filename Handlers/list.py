@@ -3,7 +3,7 @@ import jinja2
 import os
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates/"))
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/../templates/"))
 
 class List(webapp2.RequestHandler):
     def get(self):

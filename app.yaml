@@ -6,10 +6,10 @@ threadsafe: true
 
 handlers:
 - url: /new.*
-  script: add.app
+  script: Handlers.add.app
   
 - url: /
-  script: list.app
+  script: Handlers.list.app
   
 libraries:
 - name: jinja2
