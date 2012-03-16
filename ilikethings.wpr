@@ -4,9 +4,23 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+proj.directory-list = [{'dirloc': loc('Entities'),
+                        'excludes': (),
+                        'filter': '*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True},
+                       {'dirloc': loc('Templates'),
+                        'excludes': (),
+                        'filter': '*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True}]
 proj.file-list = [loc('add.html'),
                   loc('add.py'),
                   loc('app.yaml'),
                   loc('list.html'),
-                  loc('list.py')]
+                  loc('list.py'),
+                  loc('Templates/add.html'),
+                  loc('Templates/list.html')]
 proj.file-type = 'shared'
