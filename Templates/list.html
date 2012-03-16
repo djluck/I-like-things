@@ -3,5 +3,14 @@
 {% block title %}LIST{% endblock %}
 
 {% block content %}    
-LIST HTML {{ myname }}
+Entries for: {{ user }}
+<div id="entries">
+{% for e in entries %}
+    <div class="entry">
+        <span>{{ e.link }}</span>
+        <span>{{ e.date_created }}</span>
+    </div>
+{% endfor %}
+</div>
+
 {% endblock %}
