@@ -17,11 +17,12 @@ class Add(Base):
             date_expires = datetime.strptime(date_expires, "%d/%m/%y").date()
         else:
             date_expires = None
-            
+        tags = [db.Category(x) for x in self.request.get("tags").split(" ")]
         entry = Entry(link=link, 
-                      tags = [db.Category(x) for x in self.request.get("tags").split(" ")],
+                      tags = tags,
                       date_expires = date_expires)
         entry.put()
+        
         self.render_initial(additional_values={"added" : True, "link" : entry.link})
         
     def render_initial(self, additional_values=None):

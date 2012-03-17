@@ -8,7 +8,12 @@ Entries for: {{ user }}
 {% for e in entries %}
     <div class="entry">
         <span>{{ e.link }}</span>
-        <span>{{ e.date_created }}</span>
+        <span>{{ e.date_created | timesince }}</span>
+        <div class="tags">
+            {% for t in e.tags -%}
+                <span class="tag">{{ t }}</span>
+            {%- endfor %}
+        </div>
     </div>
 {% endfor %}
 </div>
