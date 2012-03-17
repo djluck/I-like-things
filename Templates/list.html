@@ -2,12 +2,13 @@
 
 {% block title %}LIST{% endblock %}
 
-{% block content %}    
-Entries for: {{ user }}
+{% block content %}  
+<h1>Your links</h1>
+<h2>Entries for {{ user }}</h2>
 <div id="entries">
 {% for e in entries %}
     <div class="entry">
-        <span>{{ e.link }}</span>
+        <h3>{{ e.link }}</h3>
         <span>{{ e.date_created | timesince }}</span>
         <div class="tags">
             {% for t in e.tags -%}
