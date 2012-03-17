@@ -1,20 +1,25 @@
 {% extends "base.html" %}
+{% import 'macros.html' as macros %}
 
 {% block title %}ADD{% endblock %}
 
+{% block head %}
+<script src="/js/add.js"></script>
+{% endblock %}
+
 {% block content %}    
+
 <script>
-$(function(){
-    $( "#tags" ).autocomplete({
-	    source: {{ tags | json }}
-    });
-});
+    var tagSource = {{ tags | json }};
 </script>
+
 <form method="POST">
-    <input name="link" id="link" type="text"/>
-    <input name="tags" id="tags" type="text"/>
+    {{ macros.field("link", "1. Enter your link") }}
+    {{ macros.field("tags", "2. Enter your tags") }}
+    {{ macros.field("date_expires", "3. Enter the expiry date (optional)") }}
     <input type="submit" value="Add!"/>
 </form>
+
 {% if added is defined %}
     <div>
         Added the link {{ link | e}}!

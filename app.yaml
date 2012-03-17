@@ -5,6 +5,11 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /css
+  static_dir: content/css
+- url: /js
+  static_dir: content/js 
+  
 - url: /new.*
   script: handlers.add.app
   login: required
