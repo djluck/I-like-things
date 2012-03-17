@@ -8,4 +8,4 @@ class Entry(db.Model):
     date_created = db.DateTimeProperty(required=True, auto_now=True)
     date_expires = db.DateProperty()
     user = db.UserProperty(required=True, auto_current_user_add=True)
-    #tags = db.ListProperty(db.CategoryProperty)
+    tags = db.ListProperty(db.Category)

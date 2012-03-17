@@ -3,6 +3,13 @@
 {% block title %}ADD{% endblock %}
 
 {% block content %}    
+<script>
+$(function(){
+    $( "#tags" ).autocomplete({
+	    source: {{ tags | json }}
+    });
+});
+</script>
 <form method="POST">
     <input name="link" id="link" type="text"/>
     <input name="tags" id="tags" type="text"/>
