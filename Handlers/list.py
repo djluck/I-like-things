@@ -11,7 +11,7 @@ class List(Base):
         q.order("-date_created")
         template_values = {
             "user": users.get_current_user(),
-            "entries" : q.fetch(10)
+            "entries" : q.fetch(50)
         }
         
         self.render_template("list.html",  template_values)

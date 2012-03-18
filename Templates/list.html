@@ -8,11 +8,11 @@
 <div id="entries">
 {% for e in entries %}
     <div class="entry">
-        <h3>{{ e.link }}</h3>
+        <a href="{{ e.link | e }}">{{ e.link | e }}</a>
         <span>{{ e.date_created | timesince }}</span>
         <div class="tags">
             {% for t in e.tags -%}
-                <span class="tag">{{ t }}</span>
+                <span class="tag">{{ t | e }}</span>
             {%- endfor %}
         </div>
     </div>
