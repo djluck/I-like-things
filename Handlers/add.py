@@ -20,7 +20,7 @@ class Add(Base):
             link = "http://" + link
         if len(link) == 0:
             errors.append("Link must not be empty")
-        elif not reduce(lambda x, y: (len(y) > 0) and x, urlparse.urlparse(link), True):
+        elif len(urlparse.urlparse(link)[1]) == 0:
             errors.append("Link must be a valid url")
         
         date_expires = self.request.get("date_expires")
@@ -51,8 +51,6 @@ class Add(Base):
         tags = [i for i in set([t for e in result for t in e.tags])]
         template_values = {"tags" : tags}
         template_values = dict(template_values.items() + additional_values.items())
-        if "args" not in template_values:
-            template_values["args"] = lambda x: None
         self.render_template("add.html", template_values)  
         
         

@@ -2,7 +2,7 @@
     <div class="field">
         <label for="{{ id }}">{{ label }}</label>
         <input 
-            type="{{ type }}" value="{{ args(id) |e }}" name="{{ id }}" id="{{ id }}" 
+            type="{{ type }}" {% if args is defined -%}value="{{ args(id) | e }}"{%- endif %} name="{{ id }}" id="{{ id }}" 
             placeholder="{{ placeholder }}"
         />
     </div>
