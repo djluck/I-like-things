@@ -13,6 +13,23 @@
     var tagSource = {{ tags | json }};
 </script>
 
+{% if added is defined %}
+    <div class="success">
+        Added the link!
+    </div>
+{% endif %}
+
+{% if errors is defined %}
+    <div class="error">
+        <b>Whoops!</b>
+        <ul>
+            {% for e in errors %}
+                <li>{{ e }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 <form method="POST">
     {{ macros.field("link", "1. Enter your link") }}
     {{ macros.field("tags", "2. Enter your tags") }}
@@ -20,10 +37,5 @@
     <input type="submit" value="Add!" id="add_entry"/>
 </form>
 
-{% if added is defined %}
-    <div>
-        Added the link {{ link | e}}!
-    </div>
-{% endif %}
 {% endblock %}
 
