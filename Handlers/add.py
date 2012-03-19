@@ -7,17 +7,20 @@ import urlparse
 
 class Add(Base):
     def get(self):
-        self.render_initial()
+        template_values = {}
+        if (self.request.get("added") != ""):
+            template_values["added"] = True        
+        self.render_initial(template_values)
         
     def post(self):
         errors = []
         
         link = self.request.get("link").strip(" ")
-        if link[0:4] != "http" and len(link) > 0:
+        if len(link) > 0 and link[0:4] != "http":
             link = "http://" + link
         if len(link) == 0:
             errors.append("Link must not be empty")
-        elif reduce(lambda x, y: len(y) > 0 and x, urlparse.urlparse(link), True):
+        elif not reduce(lambda x, y: (len(y) > 0) and x, urlparse.urlparse(link), True):
             errors.append("Link must be a valid url")
         
         date_expires = self.request.get("date_expires")
@@ -39,7 +42,7 @@ class Add(Base):
             entry.put()
             self.redirect("?added=True")
         else:
-            self.render_initial({"errors": errors})
+            self.render_initial({"errors": errors, "args" : self.request.get})
         
         
         
@@ -48,8 +51,8 @@ class Add(Base):
         tags = [i for i in set([t for e in result for t in e.tags])]
         template_values = {"tags" : tags}
         template_values = dict(template_values.items() + additional_values.items())
-        if (self.request.get("added") != ""):
-            template_values["added"] = True
+        if "args" not in template_values:
+            template_values["args"] = lambda x: None
         self.render_template("add.html", template_values)  
         
         

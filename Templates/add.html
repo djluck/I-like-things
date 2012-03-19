@@ -30,10 +30,12 @@
     </div>
 {% endif %}
 
-<form method="POST">
-    {{ macros.field("link", "1. Enter your link") }}
-    {{ macros.field("tags", "2. Enter your tags") }}
-    {{ macros.field("date_expires", "3. Enter the expiry date (optional)") }}
+<form method="POST">    
+    
+
+    {{ macros.field("link", "1. Enter your link", args) }}
+    {{ macros.field("tags", "2. Enter your tags", args) }}
+    {{ macros.field("date_expires", "3. Enter the expiry date (optional)", args) }}
     <input type="submit" value="Add!" id="add_entry"/>
 </form>
 
