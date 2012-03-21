@@ -16,11 +16,7 @@ proj.directory-list = [{'dirloc': loc('Entities'),
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]
-proj.file-list = [loc('add.html'),
-                  loc('add.py'),
-                  loc('app.yaml'),
-                  loc('list.html'),
-                  loc('list.py'),
+proj.file-list = [loc('app.yaml'),
                   loc('Templates/add.html'),
                   loc('Templates/list.html')]
 proj.file-type = 'shared'
