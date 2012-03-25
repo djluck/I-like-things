@@ -6,12 +6,12 @@
 <h1>Your links</h1>
 <h2>Entries for {{ user }}</h2>
 <div id="entries">
-{% for e in entries %}
+{% for entry, tags in recent_entries %}
     <div class="entry">
-        <a href="{{ e.link | e }}">{{ e.link | e }}</a>
-        <span>{{ e.date_created | timesince }}</span>
+        <a href="{{ entry.link | e }}">{{ entry.link | e }}</a>
+        <span>{{ entry.date_created | timesince }}</span>
         <div class="tags">
-            {% for t in e.tags -%}
+            {% for t in tags -%}
                 <span class="tag">{{ t | e }}</span>
             {%- endfor %}
         </div>

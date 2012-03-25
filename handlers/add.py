@@ -1,9 +1,11 @@
 import webapp2
 from handlers.base import Base
-from entities.entry import Entry
+from data.functions import *
+from data.entities import Tag
 from google.appengine.ext import db
 from datetime import datetime
 import urlparse
+from google.appengine.api import users
 
 class Add(Base):
     def get(self):
@@ -29,17 +31,12 @@ class Add(Base):
         else:
             date_expires = None
             
-        tags_raw = self.request.get("tags").strip(" ").split(" ")
-        if len(tags_raw) == 1 and tags_raw[0] == "":
+        tags = self.request.get("tags").strip(" ").split(" ")
+        if len(tags) == 1 and tags[0] == "":
             errors.append("You must enter at least 1 tag")
-        else:
-            tags = [db.Category(x) for x in tags_raw]
         
         if len(errors) == 0:
-            entry = Entry(link=link, 
-                          tags = tags,
-                          date_expires = date_expires)
-            entry.put()
+            new_entry(link, tags, date_expires)
             self.redirect("?added=True")
         else:
             self.render_initial({"errors": errors, "args" : self.request.get})
@@ -47,9 +44,7 @@ class Add(Base):
         
         
     def render_initial(self, additional_values={}):
-        result =  Entry.all().fetch(100)
-        tags = [i for i in set([t for e in result for t in e.tags])]
-        template_values = {"tags" : tags}
+        template_values = {"tags" : get_all_tags()}
         template_values = dict(template_values.items() + additional_values.items())
         self.render_template("add.html", template_values)  
         

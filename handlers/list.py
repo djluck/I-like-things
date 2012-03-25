@@ -1,17 +1,14 @@
 import webapp2
 from handlers.base import Base
 from google.appengine.ext import db
-from entities.entry import Entry
+from data.functions import get_recent_entries
 from google.appengine.api import users
 
 class List(Base):
     def get(self):
-        q = Entry.all();
-        q.filter("user = ", users.get_current_user())
-        q.order("-date_created")
         template_values = {
             "user": users.get_current_user(),
-            "entries" : q.fetch(50)
+            "recent_entries" : get_recent_entries()
         }
         
         self.render_template("list.html",  template_values)
