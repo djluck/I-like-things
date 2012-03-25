@@ -4,23 +4,31 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
-proj.directory-list = [{'dirloc': loc('Entities'),
+proj.directory-list = [{'dirloc': loc('Templates'),
                         'excludes': (),
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True},
-                       {'dirloc': loc('Templates'),
+                       {'dirloc': loc('handlers'),
+                        'excludes': [u'__init__.py'],
+                        'filter': '*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True},
+                       {'dirloc': loc('content'),
+                        'excludes': (),
+                        'filter': '*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True},
+                       {'dirloc': loc('data'),
                         'excludes': (),
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]
-proj.file-list = [loc('add.html'),
-                  loc('add.py'),
-                  loc('app.yaml'),
-                  loc('list.html'),
-                  loc('list.py'),
+proj.file-list = [loc('app.yaml'),
                   loc('Templates/add.html'),
                   loc('Templates/list.html')]
 proj.file-type = 'shared'
