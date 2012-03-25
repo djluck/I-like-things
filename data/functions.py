@@ -62,19 +62,29 @@ def get_user():
 
 
 """
-Fetches a short list of all recent entries plus the tags for each entry
+Fetches a short list of all recent entries
 """
 def get_recent_entries():
     #get the most recent entries
     q = Entry.all()
     q.order("-date_created")
-    entries = q.fetch(10)
-    
-    #get the tags that reference the recent entries
-    q = Tag.all()
-    q.filter("entries_tagged IN", entries)
-    tags = q.fetch(100)
-    
-    #map them together
-    return map(lambda e: (e, filter(lambda t: e.key() in t.entries_tagged, tags)), entries)
+    return q.fetch(10)
 
+
+"""
+Fetches a list of entries that match the specified tags
+"""
+def search_by_tags(tags):
+    entry_ids = None
+    #get a set of entry id's that represent entries that match all tags specified
+    tag_entities = Tag.get([db.Key.from_path("User", get_user().key().id(), "Tag", t) for t in tags])
+    #filter out any null tags (these arrise when people provide non-existent tags)
+    tag_entities = [te for te in tag_entities if te is not None]
+    for t in tag_entities:
+        if entry_ids is None:
+            entry_ids = set(t.entries_tagged)
+        else:
+            entry_ids = entry_ids & set(t.entries_tagged)
+    #fetch the specified entries
+    return Entry.get(entry_ids)
+        

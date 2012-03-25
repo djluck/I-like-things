@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script src="/js/tag-autocomplete.js"></script>
+<script src="/js/tag-search.js"></script>
+{% endblock %}
+
 {% block title %}LIST{% endblock %}
 
 {% block content %}  
+<script>
+    var tagSource = {{ tags | json }};
+</script>
 <h1>Your links</h1>
-<h2>Entries for {{ user }}</h2>
+
+<div id="search">
+    {{ macros.field("tags", "search by tags:") }}
+</div>
+
+<h2>Recent links for {{ user }}</h2>
 <div id="entries">
-{% for entry, tags in recent_entries %}
-    <div class="entry">
-        <a href="{{ entry.link | e }}">{{ entry.link | e }}</a>
-        <span>{{ entry.date_created | timesince }}</span>
-        <div class="tags">
-            {% for t in tags -%}
-                <span class="tag">{{ t | e }}</span>
-            {%- endfor %}
-        </div>
-    </div>
-{% endfor %}
+    {{ macros.entries(recent_entries) }}
 </div>
 
 {% endblock %}

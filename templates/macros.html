@@ -7,3 +7,18 @@
         />
     </div>
 {%- endmacro %}
+
+
+{% macro entries(entries) -%}
+    {% for entry in entries %}
+    <div class="entry">
+        <a href="{{ entry.link | e }}">{{ entry.link | e }}</a>
+        <span>{{ entry.date_created | timesince }}</span>
+        <div class="tags">
+            {% for t in entry.tags -%}
+                <span class="tag">{{ t | e }}</span>
+            {%- endfor %}
+        </div>
+    </div>
+{% endfor %}
+{%- endmacro %}

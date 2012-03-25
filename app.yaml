@@ -14,6 +14,10 @@ handlers:
   script: handlers.add.app
   login: required
   
+- url: /search.*
+  script: handlers.search.app
+  login: required
+  
 - url: /
   script: handlers.list.app
   login: required
