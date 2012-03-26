@@ -9,7 +9,7 @@ class List(Base):
         template_values = {
             "user": users.get_current_user(),
             "recent_entries" : get_recent_entries(),
-            "tags" : get_all_tags()
+            "tags" : [t.value for t in get_all_tags()]
         }
         
         self.render_template("list.html",  template_values)

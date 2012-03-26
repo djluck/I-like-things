@@ -31,6 +31,9 @@ $(function(){
 		terms.push("");
 		this.value = terms.join(" ");
 		return false;
+	    },
+	    change: function(event, ui){ 
+		alert(ui.item);
 	    }
 	});
 });

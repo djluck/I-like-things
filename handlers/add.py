@@ -44,7 +44,7 @@ class Add(Base):
         
         
     def render_initial(self, additional_values={}):
-        template_values = {"tags" : get_all_tags()}
+        template_values = {"tags" : [t.value for t in get_all_tags()]}
         template_values = dict(template_values.items() + additional_values.items())
         self.render_template("add.html", template_values)  
         
