@@ -31,6 +31,7 @@ proj.directory-list = [{'dirloc': loc('templates'),
 proj.file-list = [loc('file:c:/Program Files (x86)/Google/google_appengine/dev_appserver.py'),
                   loc('app.yaml'),
                   loc('config.py'),
+                  loc('handlers/tags.py'),
                   loc('templates/add.html'),
                   loc('templates/list.html')]
 proj.file-type = 'shared'
