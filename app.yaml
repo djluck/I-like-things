@@ -5,10 +5,14 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /css
-  static_dir: content/css
-- url: /js
-  static_dir: content/js 
+- url: /styles
+  static_dir: content/styles
+  
+- url: /scripts
+  static_dir: content/scripts 
+
+- url: /images
+  static_dir: content/images 
   
 - url: /new.*
   script: handlers.add.app
