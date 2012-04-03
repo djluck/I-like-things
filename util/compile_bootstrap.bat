@@ -1,0 +1,1 @@
+node lessc.js ..\content\styles\bootstrap\bootstrap.less -x > ..\content\styles\bootstrap\bootstrap.css
