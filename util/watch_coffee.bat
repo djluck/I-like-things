@@ -1,0 +1,1 @@
+coffee --watch --compile --output "../content/scripts/js" "../content/scripts/cs"

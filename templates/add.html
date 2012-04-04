@@ -32,7 +32,7 @@
 
 <form method="POST">    
     
-
+    {{ macros.type_ahead_token() }}
     {{ macros.field("link", "1. Enter your link", args) }}
     {{ macros.field("tags", "2. Enter your tags", args) }}
     {{ macros.field("date_expires", "3. Enter the expiry date (optional)", args) }}

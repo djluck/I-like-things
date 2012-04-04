@@ -22,3 +22,14 @@
     </div>
 {% endfor %}
 {%- endmacro %}
+
+
+{% macro type_ahead_token() %}
+    <div class="tokenised-typeahead">
+        <!-- <a class="close"> &times;</a> -->
+        <span class="tag">Tag1 <i class="icon-tag-remove"></i></span>
+        <span class="tag">Tag2 <i class="icon-tag-remove"></i></span>
+        <input type="text"/>
+        <div style="clear:both"></div>
+    </div>
+{% endmacro %}
