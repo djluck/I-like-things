@@ -29,6 +29,7 @@
     this.highlighter = this.options.highlighter || this.highlighter
     this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
+    this.onSelect = this.options.onSelect || this.onSelect;
     this.shown = false
     this.listen()
   }
@@ -41,7 +42,9 @@
       var val = this.$menu.find('.active').attr('data-value')
       this.$element.val(val)
       this.$element.change();
-      return this.hide()
+      var result = this.hide()
+      this.onSelect(this.$element, val);
+      return result;
     }
 
   , show: function () {
@@ -112,6 +115,9 @@
       return item.replace(new RegExp('(' + this.query + ')', 'ig'), function ($1, match) {
         return '<strong>' + match + '</strong>'
       })
+    }
+    
+  , onSelect: function (element, val) {
     }
 
   , render: function (items) {

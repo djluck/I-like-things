@@ -3979,15 +3979,14 @@ a.thumbnail:hover {
 .tokenised-typeahead {
   display: block;
   padding: 4px;
+  padding-top: 0;
   height: auto;
+  cursor: text;
 }
 .icon-tag-remove {
   background-position: -168px -96px;
   background-image: url("../../images/glyphicons-halflings-white.png");
   cursor: pointer;
-}
-.tokenised-typeahead > * {
-  margin-right: 4px;
 }
 .tokenised-typeahead .tag {
   padding: 1px 4px 2px;
@@ -4018,14 +4017,19 @@ a.thumbnail:hover {
   display: inline;
   width: auto;
   margin: 0;
-  width: 50px;
+  margin-top: 4px;
   padding: 0;
+  width: 100%;
 }
 .tokenised-typeahead input:focus {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
   outline: 0;
+}
+.tokenised-typeahead > * {
+  margin-right: 4px;
+  margin-top: 4px;
 }
 .pull-right {
   float: right;

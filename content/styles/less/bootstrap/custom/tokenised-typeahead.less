@@ -1,9 +1,9 @@
 .tokenised-typeahead{
     display:block;
     padding:4px;
+    padding-top:0;
     height:auto;
-    
-    
+    cursor:text;
 }
 
 .icon-tag-remove{
@@ -11,12 +11,6 @@
     .icon-white;
     cursor:pointer;
 }
-
-.tokenised-typeahead > *{
-    margin-right:4px;
-}
-
-
 
 .tokenised-typeahead .tag{
     .label; 
@@ -35,12 +29,18 @@
     display: inline;
     width:auto;
     margin:0;
-    width:50px;
+    margin-top:4px;
     padding:0;
+    width:100%;
 }
 
 
 .tokenised-typeahead input:focus{
   .box-shadow(none);
   outline: 0;
+}
+
+.tokenised-typeahead > *{
+    margin-right:4px;
+    margin-top:4px;
 }
