@@ -31,7 +31,7 @@ class Add(Base):
         else:
             date_expires = None
             
-        tags = self.request.get("tags").strip(" ").split(" ")
+        tags = self.request.get("tags").strip(" ").split(",")
         if len(tags) == 1 and tags[0] == "":
             errors.append("You must enter at least 1 tag")
         

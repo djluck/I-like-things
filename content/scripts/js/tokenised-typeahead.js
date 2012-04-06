@@ -17,11 +17,13 @@
       this._onKeydown = __bind(this._onKeydown, this);
       this._onInputBlur = __bind(this._onInputBlur, this);
       this._onInputFocus = __bind(this._onInputFocus, this);
+      this._generateHiddenValue = __bind(this._generateHiddenValue, this);
       this._removeTag = __bind(this._removeTag, this);
       this._resetInput = __bind(this._resetInput, this);
       this.addTag = __bind(this.addTag, this);
       this.$container = $(this.$container);
-      this.$input = $("input", this.$container);
+      this.$input = $("input[type='text']", this.$container);
+      this.$hidden = $("input[type='hidden']", this.$container);
       this.tags = [];
       this.inputPlaceholder = this.$input.attr("placeholder");
       this.$container.click(function() {
@@ -54,6 +56,7 @@
         return _this._removeTag(newTag);
       });
       this._resetInput();
+      this._generateHiddenValue();
       return newTag;
     };
 
@@ -79,10 +82,23 @@
           toRemove = this.tags.pop();
         }
         toRemove.element.remove();
-        if (this.tags.length === 0 && this.$input.val() === "") {
-          return this._resetInput();
-        }
+        if (this.tags.length === 0 && this.$input.val() === "") this._resetInput();
+        return this._generateHiddenValue();
       }
+    };
+
+    TokenisedInput.prototype._generateHiddenValue = function() {
+      var tag;
+      return this.$hidden.val((function() {
+        var _i, _len, _ref, _results;
+        _ref = this.tags;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tag = _ref[_i];
+          _results.push(tag.value);
+        }
+        return _results;
+      }).call(this));
     };
 
     TokenisedInput.prototype._onInputFocus = function() {

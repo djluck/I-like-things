@@ -8,6 +8,14 @@
     </div>
 {%- endmacro %}
 
+{% macro tokenised_typeahead(id, label) %}
+    <label for="tag-input-{{ id }}">{{ label }}</label>
+    <div class="tokenised-typeahead">
+        <input type="hidden" name="{{ id }}" id="{{ id }}"/>
+        <input type="text" name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
+        <div style="clear:both"></div>
+    </div>
+{% endmacro %}
 
 {% macro entries(entries) -%}
     {% for entry in entries %}
@@ -24,10 +32,3 @@
 {%- endmacro %}
 
 
-{% macro type_ahead_token() %}
-    <div class="tokenised-typeahead">
-        <!-- <a class="close"> &times;</a> -->
-        <input placeholder="Enter your tags" type="text"/>
-        <div style="clear:both"></div>
-    </div>
-{% endmacro %}

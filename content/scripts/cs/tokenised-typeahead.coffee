@@ -5,7 +5,8 @@ class TokenisedInput
 
     constructor: (@$container, source) ->
         @$container = $(@$container)
-        @$input = $("input", @$container)
+        @$input = $("input[type='text']", @$container)
+        @$hidden = $("input[type='hidden']", @$container)
         @tags = []
         @inputPlaceholder = @$input.attr("placeholder")
         
@@ -45,6 +46,7 @@ class TokenisedInput
                 @_removeTag(newTag)
           
         @_resetInput()
+        @_generateHiddenValue()
         
         #return the new tag
         newTag
@@ -78,8 +80,11 @@ class TokenisedInput
             toRemove.element.remove()
             if @tags.length is 0 and @$input.val() is ""
                 @_resetInput()
+            @_generateHiddenValue()
                 
-        
+                
+    _generateHiddenValue: () =>
+        @$hidden.val(tag.value for tag in @tags)
         
     _onInputFocus: () =>
         @$container.addClass("selected")

@@ -11,17 +11,29 @@
 
 <script>
     var tagSource = {{ tags | json }};
+    $(function(){
+        $("#link").popover();
+    });
+
 </script>
 
+<div class="page-header">
+  <h1>
+    Add a new thing
+    <small>It's as simple as..</small>
+  </h1>
+</div>
+
+
 {% if added is defined %}
-    <div class="success">
-        Added the link!
+    <div class="alert alert-success">
+        Added your thing!
     </div>
 {% endif %}
 
 {% if errors is defined %}
-    <div class="error">
-        <b>Whoops!</b>
+    <div class="alert alert-error">
+        <b>Sabotuer!</b>
         <ul>
             {% for e in errors %}
                 <li>{{ e }}</li>
@@ -29,13 +41,12 @@
         </ul>
     </div>
 {% endif %}
-
 <form method="POST">    
     
-    {{ macros.type_ahead_token() }}
-    {{ macros.field("link", "1. Enter your link", args) }}
-    {{ macros.field("tags", "2. Enter your tags", args) }}
-    {{ macros.field("date_expires", "3. Enter the expiry date (optional)", args) }}
+
+    {{ macros.field("link", "1. Entering your thing", args) }}
+    {{ macros.tokenised_typeahead("tags", "2. Tagging your thing") }}
+    {{ macros.field("date_expires", "3. Expiring your thing (optional)", args) }}
     <input type="submit" value="Add!" id="add_entry"/>
 </form>
 
