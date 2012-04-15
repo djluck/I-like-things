@@ -1,4 +1,5 @@
 {% macro field(id, label, args, type='text', placeholder='') -%}
+
     <div class="field">
         <label for="{{ id }}">{{ label }}</label>
         <input 
@@ -7,6 +8,20 @@
         />
     </div>
 {%- endmacro %}
+
+{% macro testmacro(id, label, type='text', class='', value='', errorMsg=None) -%}
+    {% if errorMsg is not none %}
+    {% set class = "error " + class %}
+    {% endif %}
+    {% set attrs = dict(class=class, name=id, id=id, type=type, **kwargs) %}
+    <div class="field">
+        <label for="{{ id }}">{{ label }}</label>
+        <input 
+            {{ attrs | xmlattr }} {{ value | e }}
+        />
+    </div>
+{%- endmacro %}
+
 
 
 {% macro entries(entries) -%}
