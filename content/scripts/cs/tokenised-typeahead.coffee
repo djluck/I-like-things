@@ -3,12 +3,15 @@ class TokenisedInput
     addWidthPerChar = 6
     maxTagLength = 25
 
-    constructor: (@$container, source) ->
+    constructor: (@$container, options) ->
         @$container = $(@$container)
         @$input = $("input[type='text']", @$container)
         @$hidden = $("input[type='hidden']", @$container)
         @tags = []
         @inputPlaceholder = @$input.attr("placeholder")
+        
+        options ?= {}
+        options.source ?= []
         
         #setup typeahead plugin & event handlers
         @$container
@@ -16,7 +19,7 @@ class TokenisedInput
                 @$input.focus()
         @$input
             .typeahead({
-                source: source,
+                source: options.source,
                 onSelect: (inputEle, value) =>
                     @addTag value
             })
@@ -26,7 +29,10 @@ class TokenisedInput
                 @_onInputBlur()
             .keydown (e) =>
                 @_onKeydown(e)
-                
+        
+        #add any tags already defined in the hidden field
+        if @$hidden.val() isnt ""
+            @addTag tagValue for tagValue in @$hidden.val().split(",")
 
     addTag: (value) =>
         #create tag element

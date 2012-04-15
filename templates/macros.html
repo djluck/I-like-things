@@ -1,18 +1,17 @@
-{% macro field(id, label, args, type='text', placeholder='') -%}
+{% macro field(id, label, attrs={}, type='text', attrs={}, errorMsg = None) -%}
     <div class="field">
         <label for="{{ id }}">{{ label }}</label>
         <input 
-            type="{{ type }}" {% if args is defined -%}value="{{ args(id) | e }}"{%- endif %} name="{{ id }}" id="{{ id }}" 
-            placeholder="{{ placeholder }}"
+            type="{{ type }}" {{ attrs | xmlattr }} name="{{ id }}" id="{{ id }}"
         />
     </div>
 {%- endmacro %}
 
-{% macro tokenised_typeahead(id, label) %}
+{% macro tokenised_typeahead(id, label, attrs={}, errorMsg = None) %}
     <label for="tag-input-{{ id }}">{{ label }}</label>
     <div class="tokenised-typeahead">
         <input type="hidden" name="{{ id }}" id="{{ id }}"/>
-        <input type="text" name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
+        <input type="text" {{ attrs | xmlattr }} name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
         <div style="clear:both"></div>
     </div>
 {% endmacro %}

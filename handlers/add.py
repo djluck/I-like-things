@@ -39,7 +39,7 @@ class Add(Base):
             new_entry(link, tags, date_expires)
             self.redirect("?added=True")
         else:
-            self.render_initial({"errors": errors, "args" : self.request.get})
+            self.render_initial({"errors": errors, "values" : self.request.get})
         
         
         

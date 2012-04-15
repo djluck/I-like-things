@@ -11,8 +11,9 @@
 
     maxTagLength = 25;
 
-    function TokenisedInput($container, source) {
-      var _this = this;
+    function TokenisedInput($container, options) {
+      var tagValue, _i, _len, _ref,
+        _this = this;
       this.$container = $container;
       this._onKeydown = __bind(this._onKeydown, this);
       this._onInputBlur = __bind(this._onInputBlur, this);
@@ -26,11 +27,13 @@
       this.$hidden = $("input[type='hidden']", this.$container);
       this.tags = [];
       this.inputPlaceholder = this.$input.attr("placeholder");
+      if (options == null) options = {};
+      if (options.source == null) options.source = [];
       this.$container.click(function() {
         return _this.$input.focus();
       });
       this.$input.typeahead({
-        source: source,
+        source: options.source,
         onSelect: function(inputEle, value) {
           return _this.addTag(value);
         }
@@ -41,6 +44,13 @@
       }).keydown(function(e) {
         return _this._onKeydown(e);
       });
+      if (this.$hidden.val() !== "") {
+        _ref = this.$hidden.val().split(",");
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tagValue = _ref[_i];
+          this.addTag(tagValue);
+        }
+      }
     }
 
     TokenisedInput.prototype.addTag = function(value) {

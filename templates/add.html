@@ -43,8 +43,8 @@
 {% endif %}
 <form method="POST">    
     
-
-    {{ macros.field("link", "1. Entering your thing", args) }}
+    {% set attrs = {"class":"class", "title":"A title", "value":""} %}
+    {{ macros.field("link", "1. Entering your thing", attrs) }}
     {{ macros.tokenised_typeahead("tags", "2. Tagging your thing") }}
     {{ macros.field("date_expires", "3. Expiring your thing (optional)", args) }}
     <input type="submit" value="Add!" id="add_entry"/>
