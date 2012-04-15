@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 {% macro field(id, label, attrs={}, type='text', attrs={}, errorMsg = None) -%}
+=======
+{% macro field(id, label, args, type='text', placeholder='') -%}
 
+>>>>>>> fd2982e701154724cf55c20c6e91bd27f2e086a6
     <div class="field">
         <label for="{{ id }}">{{ label }}</label>
         <input 
@@ -8,6 +12,16 @@
     </div>
 {%- endmacro %}
 
+<<<<<<< HEAD
+{% macro tokenised_typeahead(id, label, attrs={}, errorMsg = None) %}
+    <label for="tag-input-{{ id }}">{{ label }}</label>
+    <div class="tokenised-typeahead">
+        <input type="hidden" name="{{ id }}" id="{{ id }}"/>
+        <input type="text" {{ attrs | xmlattr }} name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
+        <div style="clear:both"></div>
+    </div>
+{% endmacro %}
+=======
 {% macro testmacro(id, label, type='text', class='', value='', errorMsg=None) -%}
     {% if errorMsg is not none %}
     {% set class = "error " + class %}
@@ -19,15 +33,10 @@
             {{ attrs | xmlattr }} {{ value | e }}
         />
     </div>
-{%- endmacro %}{% macro tokenised_typeahead(id, label, attrs={}, errorMsg = None) %}
-    <label for="tag-input-{{ id }}">{{ label }}</label>
-    <div class="tokenised-typeahead">
-        <input type="hidden" name="{{ id }}" id="{{ id }}"/>
-        <input type="text" {{ attrs | xmlattr }} name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
-        <div style="clear:both"></div>
-    </div>
-{% endmacro %}
+{%- endmacro %}
 
+
+>>>>>>> fd2982e701154724cf55c20c6e91bd27f2e086a6
 
 {% macro entries(entries) -%}
     {% for entry in entries %}
@@ -42,4 +51,5 @@
     </div>
 {% endfor %}
 {%- endmacro %}
+
 

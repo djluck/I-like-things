@@ -12,7 +12,7 @@
     var tagSource = {{ tags | json }};
 </script>
 <h1>Your links</h1>
-
+{{ macros.testmacro("TEST", "A test!", type="number", class="hi test", placeholder="it works!") }}
 <div id="search">
     {{ macros.field("tags", "search by tags:") }}
 </div>
