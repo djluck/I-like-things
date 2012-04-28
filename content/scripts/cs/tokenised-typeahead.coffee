@@ -12,7 +12,7 @@ class TokenisedInput
         
         options ?= {}
         options.source ?= []
-        
+
         #setup typeahead plugin & event handlers
         @$container
             .click =>
@@ -126,7 +126,6 @@ class TokenisedInput
                     e.preventDefault()
     
 $ ->
-    charWidth = 6
-    defaultInputWidth = 30
     $(".tokenised-typeahead").each ->
-        new TokenisedInput(this, ["aaa", "aab", "aac"])
+        srcVarName = $("input[type='hidden']", this).get(0).id + "_tagSrc";
+        new TokenisedInput(this, {"source": window[srcVarName]})

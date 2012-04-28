@@ -152,11 +152,12 @@
   })();
 
   $(function() {
-    var charWidth, defaultInputWidth;
-    charWidth = 6;
-    defaultInputWidth = 30;
     return $(".tokenised-typeahead").each(function() {
-      return new TokenisedInput(this, ["aaa", "aab", "aac"]);
+      var srcVarName;
+      srcVarName = $("input[type='hidden']", this).get(0).id + "_tagSrc";
+      return new TokenisedInput(this, {
+        "source": window[srcVarName]
+      });
     });
   });
 

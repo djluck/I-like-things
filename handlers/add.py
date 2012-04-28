@@ -6,46 +6,52 @@ from google.appengine.ext import db
 from datetime import datetime
 import urlparse
 from google.appengine.api import users
+import json
 
 class Add(Base):
     def get(self):
-        template_values = {}
-        if (self.request.get("added") != ""):
-            template_values["added"] = True        
-        self.render_initial(template_values)
+        addedB = "added" in self.request.GET
+        self.render_initial(added=addedB)
+        
         
     def post(self):
-        errors = []
+        context = dict([(key, {"value": val}) for key, val in self.request.POST.items()]) #populate context with id's + values
         
         link = self.request.get("link").strip(" ")
         if len(link) > 0 and link[0:4] != "http":
             link = "http://" + link
         if len(link) == 0:
-            errors.append("Link must not be empty")
+            context["link"]["error_msg"] = "Link must not be empty"
         elif len(urlparse.urlparse(link)[1]) == 0:
-            errors.append("Link must be a valid url")
+            context["link"]["error_msg"] = "Link must be a valid url"
         
         date_expires = self.request.get("date_expires")
         if date_expires != "":
-            date_expires = datetime.strptime(date_expires, "%d/%m/%y").date()
+            try:
+                date_expires = datetime.strptime(date_expires, "%d/%m/%y").date()
+            except:
+                context["date_expires"]["error_msg"] = "Date must be in the dd/mm/yy format"
+                date_expires = None
         else:
             date_expires = None
             
-        tags = self.request.get("tags").strip(" ").split(",")
+        tags = self.request.get("tags").strip(" ").split(" ")
         if len(tags) == 1 and tags[0] == "":
-            errors.append("You must enter at least 1 tag")
+            context["tags"]["error_msg"] = "You must enter at least 1 tag"
         
-        if len(errors) == 0:
+        if "error_msg" not in context["link"] and "error_msg" not in context["tags"] and "error_msg" not in context["tags"]: #TODO: improve so we can have a attribute named 'has_errors'
             new_entry(link, tags, date_expires)
-            self.redirect("?added=True")
+            self.redirect("?added=true")
         else:
-            self.render_initial({"errors": errors, "values" : self.request.get})
+            self.render_initial(context=context)
         
         
         
-    def render_initial(self, additional_values={}):
-        template_values = {"tags" : [t.value for t in get_all_tags()]}
-        template_values = dict(template_values.items() + additional_values.items())
+    def render_initial(self, **template_values):
+        if "context" not in template_values:
+            template_values["context"] = {}
+            template_values["context"]["tags"] = {}
+        template_values["context"]["tags"]["tags"] = json.dumps([t.value for t in get_all_tags()])
         self.render_template("add.html", template_values)  
         
         

@@ -28,12 +28,7 @@ class Base(webapp2.RequestHandler):
             else:
                 values = (delta.seconds, "seconds")
         return "%i %s ago" % values
-    
-    def merge_dictionaries(d1, d2):
-        result = {}
-        for key, item in d1.items():
-            
-    
+
+
     jinja_env.filters['timesince'] = timesince
     jinja_env.filters['json'] = json.dumps
-    jinja_env.filters['mergedict'] = merge_dictionaries

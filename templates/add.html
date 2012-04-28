@@ -9,27 +9,12 @@
 
 {% block content %}    
 
-<script>
-    var tagSource = {{ tags | json }};
-    $(function(){
-        $("#link").popover();
-    });
-
-</script>
-
 <div class="page-header">
   <h1>
     Add a new thing
     <small>It's as simple as..</small>
   </h1>
 </div>
-
-
-{% if added is defined %}
-    <div class="alert alert-success">
-        Added your thing!
-    </div>
-{% endif %}
 
 {% if errors is defined %}
     <div class="alert alert-error">
@@ -41,14 +26,22 @@
         </ul>
     </div>
 {% endif %}
+
+{% if added == true %}
+    <div class="alert alert-success">
+        Added your thing!
+    </div>
+{% endif %}
+
 <form method="POST">    
     
-    {% set attrs = {"class":"class", "title":"A title", "value":""} %}
-    {{ macros.field("link", "1. Entering your thing", attrs) }}
-    {{ macros.tokenised_typeahead("tags", "2. Tagging your thing") }}
-    {{ macros.field("date_expires", "3. Expiring your thing (optional)", args) }}
-    <input type="submit" value="Add!" id="add_entry"/>
+    {{ macros.field("link", "1. Entering your thing", class="span6", context=context) }}
+    {{ macros.tokenised_typeahead("tags", "2. Tagging your thing", context=context) }}
+    {{ macros.field("date_expires", "3. Expiring your thing (optional)", class="span2", context=context) }}
+    <input type="submit" class="btn btn-primary" value="Add it" id="add_entry"/>
 </form>
+
+
 
 {% endblock %}
 

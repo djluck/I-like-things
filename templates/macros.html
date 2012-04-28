@@ -1,30 +1,49 @@
-{% macro field(id, label, attrs={}, type='text', attrs={}, errorMsg = None) -%}
-
-    <div class="field">
-        <label for="{{ id }}">{{ label }}</label>
-        <input 
-            type="{{ type }}" {{ attrs | xmlattr }} name="{{ id }}" id="{{ id }}"
-        />
+{% macro field(id, label, type='text', class='', context=None) -%}
+    {% if context is not none and context[id] is defined %}
+        {% set value, error_msg = context[id].value, context[id].error_msg %}
+    {% endif %}
+    {% if error_msg is defined %}
+        {% set class = "error " + class %}
+    {% endif %}
+    {% set attrs = dict(class=class, name=id, id=id, type=type, **kwargs) %}
+    <div class="control-group {% if error_msg is defined -%}{{ "error" }}{%- endif %}">
+        <label class="control-label" for="{{ id }}">{{ label }}</label>
+        <div class="controls">
+            <input 
+                {{ attrs | xmlattr }} value="{{ value | e }}"
+            />
+            {% if error_msg is defined %}
+                <p class="help-inline">{{ error_msg }}</p>
+            {% endif %}
+        </div>
     </div>
 {%- endmacro %}
 
-{% macro testmacro(id, label, type='text', class='', value='', errorMsg=None) -%}
-    {% if errorMsg is not none %}
-    {% set class = "error " + class %}
+{% macro tokenised_typeahead(id, label, class='', context = None) %}
+    {% if context is not none and context[id] is defined %}
+        {% set value, error_msg, tags = context[id].value, context[id].error_msg, context[id].tags %}
     {% endif %}
-    {% set attrs = dict(class=class, name=id, id=id, type=type, **kwargs) %}
-    <div class="field">
-        <label for="{{ id }}">{{ label }}</label>
-        <input 
-            {{ attrs | xmlattr }} {{ value | e }}
-        />
-    </div>
-{%- endmacro %}{% macro tokenised_typeahead(id, label, attrs={}, errorMsg = None) %}
-    <label for="tag-input-{{ id }}">{{ label }}</label>
-    <div class="tokenised-typeahead">
-        <input type="hidden" name="{{ id }}" id="{{ id }}"/>
-        <input type="text" {{ attrs | xmlattr }} name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
-        <div style="clear:both"></div>
+    {% if error_msg is defined %}
+        {% set class = "error " + class %}
+    {% endif %}
+    {% if tags is defined %}
+        <script> var {{ id }}_tagSrc = {{ tags }};</script>
+    {% endif %}
+    
+    
+    <div class="control-group">
+        <label class="control-label" for="{{ id }}">{{ label }}</label>
+        <div class="controls">
+            {% set class = "" + " tokenised-typeahead" %}
+            <div class="{{ class }}">
+                <input type="hidden" name="{{ id }}" id="{{ id }}" value="{{ value | e }}"/>
+                <input autocomplete="off" type="text" name="tag-input-{{ id }}" id="tag-input-{{ id }}" />
+                <div style="clear:both"></div>
+            </div>
+            {% if error_msg is defined %}
+                <p class="help-inline">{{ error_msg }}</p>
+            {% endif %}
+        </div>
     </div>
 {% endmacro %}
 
